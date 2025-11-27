@@ -20,6 +20,10 @@ app.use("/api/reservation", require("./routes/restaurantReservationRoutes"));
 app.use("/api/table", require("./routes/tableRoutes"));
 app.use("/api/wastage", require("./routes/wastageRoutes"));
 
+app.get('/', (req, res) => {
+  res.json({ message: 'ShinePOS Backend API is running' });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
