@@ -11,7 +11,6 @@ app.use("/api/bill", require("./routes/billRoutes"));
 app.use("/api/item", require("./routes/itemRoutes"));
 app.use("/api/item-category", require("./routes/itemCategoryRoutes"));
 app.use("/api/kot", require("./routes/kotRoutes"));
-app.use("/api/menu", require("./routes/menuItemRoutes"));
 app.use("/api/noc", require("./routes/nocRoutes"));
 app.use("/api/notification", require("./routes/notificationRoutes"));
 app.use("/api/category", require("./routes/restaurantCategoryRoutes"));
