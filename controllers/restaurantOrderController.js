@@ -408,13 +408,13 @@ exports.transferTable = async (req, res) => {
   }
 };
 
-// Update order status
+// Update order status with live tracking
 exports.updateOrderStatus = async (req, res) => {
   try {
     const { status } = req.body;
     const order = await RestaurantOrder.findByIdAndUpdate(
       req.params.id,
-      { status },
+      { status, statusUpdatedAt: new Date() },
       { new: true }
     );
     if (!order) return res.status(404).json({ error: "Order not found" });

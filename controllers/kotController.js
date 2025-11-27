@@ -117,14 +117,25 @@ exports.getAllKOTs = async (req, res) => {
   }
 };
 
-// Update KOT status
+// Update KOT status with timing
 exports.updateKOTStatus = async (req, res) => {
   try {
     const { status, actualTime, assignedChef } = req.body;
-    const updates = { status };
+    const updates = { 
+      status,
+      statusUpdatedAt: new Date()
+    };
     
     if (actualTime) updates.actualTime = actualTime;
     if (assignedChef) updates.assignedChef = assignedChef;
+    
+    // Auto-calculate actual time if status is completed
+    if (status === 'completed' && !actualTime) {
+      const kot = await KOT.findById(req.params.id);
+      if (kot) {
+        updates.actualTime = Math.floor((new Date() - new Date(kot.createdAt)) / 60000);
+      }
+    }
     
     const kot = await KOT.findByIdAndUpdate(req.params.id, updates, { new: true })
       .populate('items.itemId', 'name');
